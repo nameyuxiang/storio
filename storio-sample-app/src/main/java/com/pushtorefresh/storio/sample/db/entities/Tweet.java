@@ -33,7 +33,7 @@ public class Tweet {
     @StorIOContentResolverColumn(name = TweetsTable.COLUMN_AUTHOR)
     String author;
 
-    @NonNull
+    @Nullable
     @StorIOSQLiteColumn(name = TweetsTable.COLUMN_CONTENT)
     @StorIOContentResolverColumn(name = TweetsTable.COLUMN_CONTENT)
     String content;
@@ -42,14 +42,14 @@ public class Tweet {
     Tweet() {
     }
 
-    private Tweet(@Nullable Long id, @NonNull String author, @NonNull String content) {
+    private Tweet(@Nullable Long id, @NonNull String author, @Nullable String content) {
         this.id = id;
         this.author = author;
         this.content = content;
     }
 
     @NonNull
-    public static Tweet newTweet(@Nullable Long id, @NonNull String author, @NonNull String content) {
+    public static Tweet newTweet(@Nullable Long id, @NonNull String author, @Nullable String content) {
         return new Tweet(id, author, content);
     }
 
@@ -84,14 +84,15 @@ public class Tweet {
 
         if (id != null ? !id.equals(tweet.id) : tweet.id != null) return false;
         if (!author.equals(tweet.author)) return false;
-        return content.equals(tweet.content);
+        return content != null ? content.equals(tweet.content) : tweet.content == null;
+
     }
 
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + author.hashCode();
-        result = 31 * result + content.hashCode();
+        result = 31 * result + (content != null ? content.hashCode() : 0);
         return result;
     }
 

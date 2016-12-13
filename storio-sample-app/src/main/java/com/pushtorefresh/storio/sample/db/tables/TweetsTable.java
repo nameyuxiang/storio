@@ -46,7 +46,7 @@ public class TweetsTable {
         return "CREATE TABLE " + TABLE + "("
                 + COLUMN_ID + " INTEGER NOT NULL PRIMARY KEY, "
                 + COLUMN_AUTHOR + " TEXT NOT NULL, "
-                + COLUMN_CONTENT + " TEXT NOT NULL"
+                + COLUMN_CONTENT + " TEXT"
                 + ");";
     }
 }
